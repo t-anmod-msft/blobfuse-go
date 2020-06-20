@@ -37,27 +37,19 @@ jobs:
         
     - name: Build Blobfuse-Go
       run: |
+        mkdir mount temp
         cd main
         go build filesystem.go connection.go dirapis.go fileapis.go
+        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secret.ACCOUNT_KEY}} --containerName=test
         
-    - name: Run Blobfuse-cpp
-      run: |
-        export AZURE_STORAGE_ACCOUNT=anmodblobwthns
-        export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
-        mkdir mount temp
-        blobfuse mount --tmp-path=temp --container-name=test
-        cd mount 
-        ls -l
-        cd ..
-        fusermount -u mount
-        
-    - name: Run Blobfuse-Go
-      run: |
-        cd main
-        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test &
-        cd ../mount
-        ls -l
-        cd ..
-        fusermount -u mount
-        
-        
+  Run Blobfuse-cpp Test Suite:
+    name: blobfuse-go testing
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Download Test
+        run: |
+          cd mount
+          pwd
+          ls -l
+          cp 1 ../temp
