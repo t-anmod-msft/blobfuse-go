@@ -35,21 +35,23 @@ jobs:
         sudo apt-get install pkg-config cmake libcurl4-gnutls-dev libgnutls28-dev uuid-dev libgcrypt20-dev libboost-all-dev gcc g++ -y
         sudo apt-get install blobfuse
         
-    - name: Build Blobfuse-Go
+    - name: Run Blobfuse-cpp
       run: |
+        export AZURE_STORAGE_ACCOUNT=anmodblobwthns
+        export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
         mkdir mount temp
+        blobfuse mount --tmp-path=temp --container-name=test
+        cd mount 
+        ls -l
+        cd ..
+        fusermount -u mount
+    - name: Install Blobfuse-Go
+      run: |
         cd main
-        go build filesystem.go connection.go dirapis.go fileapis.go
-        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test
+        go build filesystem.go dirapis.go fileapis.go connection.go
+        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test &
+    - name: Run Blobfuse-Go
+      run: |
+        cd mount
+        ls -l
         
-  test:
-    name: blobfuse-go testing
-    runs-on: ubuntu-latest
-    steps:
-      
-      - name: Download Test
-        run: |
-          cd mount
-          pwd
-          ls -l
-          cp 1 ../temp
