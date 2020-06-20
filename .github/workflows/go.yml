@@ -40,7 +40,7 @@ jobs:
         export AZURE_STORAGE_ACCOUNT=anmodblobwthns
         export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
         mkdir mount temp
-        blobfuse mount --tmp-path=temp --container-name=test
+        blobfuse mount --tmp-path=temp --container-name=test -o allow_other
         cd mount 
         ls -l
         touch hello.txt
