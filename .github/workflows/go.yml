@@ -40,7 +40,7 @@ jobs:
         mkdir mount temp
         cd main
         go build filesystem.go connection.go dirapis.go fileapis.go
-        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secret.ACCOUNT_KEY}} --containerName=test
+        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test
         
   Run Blobfuse-cpp Test Suite:
     name: blobfuse-go testing
