@@ -39,14 +39,11 @@ jobs:
       run: |
         export AZURE_STORAGE_ACCOUNT=anmodblobwthns
         export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
-        mkdir mount temp
-        mkdir /mnt/temp
-        blobfuse mount --tmp-path=/mnt/temp --container-name=test 
+        mkdir mount temp anuj
+        blobfuse mount --tmp-path=temp --container-name=test 
         cd mount 
         ls -l
-        touch hello.txt
-        echo "Hello New File" > hello.txt
-        cat hello.txt
+        cp 1 ../anuj
         cd ..
         fusermount -u mount
     - name: Install Blobfuse-Go
