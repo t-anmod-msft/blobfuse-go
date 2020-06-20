@@ -42,7 +42,7 @@ jobs:
         go build filesystem.go connection.go dirapis.go fileapis.go
         ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test
         
-  Run Blobfuse-cpp Test Suite:
+  test:
     name: blobfuse-go testing
     runs-on: ubuntu-latest
     steps:
