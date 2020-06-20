@@ -43,7 +43,7 @@ jobs:
         blobfuse mount --tmp-path=temp --container-name=test 
         cd mount 
         ls -l
-        cp 1 ../anuj
+        cp -r 1 ../anuj
         cd ..
         fusermount -u mount
     - name: Install Blobfuse-Go
