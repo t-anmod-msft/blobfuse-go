@@ -43,6 +43,9 @@ jobs:
         blobfuse mount --tmp-path=temp --container-name=test
         cd mount 
         ls -l
+        touch hello.txt
+        echo "Hello New File" > hello.txt
+        cat hello.txt
         cd ..
         fusermount -u mount
     - name: Install Blobfuse-Go
