@@ -69,11 +69,20 @@ jobs:
         cd ..
         fusermount -u mount
         
-    - name: Install Blobfuse-Go
+    - name: Install and Run Blobfuse-Go
       run: |
         cd main
         go build filesystem.go connection.go dirapis.go fileapis.go
-        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test
+        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test &
+        
+    - name: Upload Test Blobfuse-Go
+      run: |
         cd ../mount
         ls -l
+        STARTTIME=$(date +%s)
+        dd if=/dev/zero of=test3.txt  bs=20M  count=1
+        ENDTIME=$(date +%s)
+        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 20 MB"
+        cd ..
+        fusermount -u mount
         
