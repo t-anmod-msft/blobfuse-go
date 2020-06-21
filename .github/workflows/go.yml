@@ -37,7 +37,8 @@ jobs:
         
     - name: Run Blobfuse-cpp
       run: |
-        mkdir mount
+        pwd
+        sudo mkdir mount
         sudo chown -R `whoami` mount
         sudo chmod 777 mount
         sudo mkdir /mnt/blobfusetmp
@@ -49,7 +50,8 @@ jobs:
         echo "containerName test" >> connection.conf
         cat connection.conf
         sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
-        cd mount 
+        echo "Mounted"
+        sudo cd mount 
         ls -l
         touch hello.txt
         ls -l
