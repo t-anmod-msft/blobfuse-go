@@ -37,11 +37,15 @@ jobs:
         
     - name: Run Blobfuse-cpp
       run: |
+        sudo mkdir ./mount /mnt/blobfusetmp
+        sudo chown 777 mount
+        sudo chown 777 /mnt/blobfusetmp
         export AZURE_STORAGE_ACCOUNT=anmodblobwthns
         export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
-        mkdir mount temp
-        blobfuse mount --tmp-path=temp --container-name=test
+        sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --container-name=test
         cd mount 
+        ls -l
+        touch hello.txt
         ls -l
         cd ..
         fusermount -u mount
