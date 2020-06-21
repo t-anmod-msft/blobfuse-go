@@ -42,7 +42,7 @@ jobs:
         sudo chown 777 /mnt/blobfusetmp
         export AZURE_STORAGE_ACCOUNT=anmodblobwthns
         export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
-        blobfuse mount --tmp-path=/mnt/blobfusetmp --container-name=test
+        sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --container-name=test
         cd mount 
         ls -l
         touch hello.txt
