@@ -57,6 +57,7 @@ jobs:
         
     - name: Upload Test Blobfuse-cpp
       run: |
+        cd mount
         STARTTIME=$(date +%s)
         dd if=/dev/zero of=test1.txt  bs=10M  count=1
         ENDTIME=$(date +%s)
