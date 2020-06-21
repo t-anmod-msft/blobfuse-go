@@ -62,3 +62,17 @@ jobs:
         dd if=/dev/zero of=test1.txt  bs=10M  count=1
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 10 MB"
+        STARTTIME=$(date +%s)
+        dd if=/dev/zero of=test2.txt  bs=100M  count=1
+        ENDTIME=$(date +%s)
+        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
+        cd ..
+        fusermount -u mount
+        
+    - name: Install Blobfuse-Go
+      run: |
+        cd main
+        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test
+        cd ../mount
+        ls -l
+        
