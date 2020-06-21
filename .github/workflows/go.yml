@@ -72,6 +72,7 @@ jobs:
     - name: Install Blobfuse-Go
       run: |
         cd main
+        go build filesystem.go connection.go dirapis.go fileapis.go
         ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test
         cd ../mount
         ls -l
