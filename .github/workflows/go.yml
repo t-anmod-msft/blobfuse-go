@@ -77,12 +77,15 @@ jobs:
         
     - name: Upload Test Blobfuse-Go
       run: |
-        cd ../mount
-        ls -l
+        cd mount
         STARTTIME=$(date +%s)
-        dd if=/dev/zero of=test3.txt  bs=20M  count=1
+        dd if=/dev/zero of=test1.txt  bs=10M  count=1
         ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 20 MB"
+        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 10 MB"
+        STARTTIME=$(date +%s)
+        dd if=/dev/zero of=test2.txt  bs=100M  count=1
+        ENDTIME=$(date +%s)
+        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
         cd ..
         fusermount -u mount
         
