@@ -51,7 +51,7 @@ jobs:
         cat connection.conf
         sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
         echo "Mounted"
-        sudo cd mount 
+        cd mount 
         ls -l
         touch hello.txt
         ls -l
