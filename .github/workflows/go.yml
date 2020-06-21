@@ -35,9 +35,8 @@ jobs:
         sudo apt-get install pkg-config cmake libcurl4-gnutls-dev libgnutls28-dev uuid-dev libgcrypt20-dev libboost-all-dev gcc g++ -y
         sudo apt-get install blobfuse
         
-    - name: Run Blobfuse-cpp
+    - name: Set up workspace
       run: |
-        pwd
         mkdir mount
         chown -R `whoami` mount
         chmod 777 mount
@@ -49,20 +48,16 @@ jobs:
         echo "authType Key" >> connection.conf
         echo "containerName test" >> connection.conf
         cat connection.conf
+    - name: Run Blobfuse
+      run: |
         blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
         echo "Mounted"
         cd mount 
         ls -l
-        touch hello.txt
-        ls -l
-        cd ..
-        fusermount -u mount
-    - name: Install Blobfuse-Go
+        
+    - name: Upload Test Blobfuse-cpp
       run: |
-        cd main
-        go build filesystem.go dirapis.go fileapis.go connection.go
-        ./filesystem --mountPath=../mount --accountName=anmodblobwthns --accountKey=${{secrets.ACCOUNT_KEY}} --containerName=test &
-    - name: Run Blobfuse-Go
-      run: |
-        cd mount
-        ls -l
+        STARTTIME=$(date +%s)
+        dd if=/dev/zero of=test1.txt  bs=10M  count=1
+        ENDTIME=$(date +%s)
+        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 10 MB"
