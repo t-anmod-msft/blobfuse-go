@@ -41,9 +41,9 @@ jobs:
         mkdir mount
         chown -R `whoami` mount
         chmod 777 mount
-        mkdir /mnt/blobfusetmp
-        chown -R `whoami` /mnt/blobfusetmp
-        chmod 777 /mnt/blobfusetmp
+        sudo mkdir /mnt/blobfusetmp
+        sudo chown -R `whoami` /mnt/blobfusetmp
+        sudo chmod 777 /mnt/blobfusetmp
         echo "accountName anmodblobwthns" > connection.conf
         echo "accountKey " ${{secrets.ACCOUNT_KEY}} >> connection.conf
         echo "authType Key" >> connection.conf
