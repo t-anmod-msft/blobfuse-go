@@ -40,8 +40,8 @@ jobs:
         sudo mkdir ./mount /mnt/blobfusetmp
         sudo chown 777 mount
         sudo chown 777 /mnt/blobfusetmp
-        sudo export AZURE_STORAGE_ACCOUNT=anmodblobwthns
-        sudo export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
+        #export AZURE_STORAGE_ACCOUNT=anmodblobwthns
+        #export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
         sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --container-name=test
         cd mount 
         ls -l
