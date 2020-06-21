@@ -38,8 +38,8 @@ jobs:
     - name: Run Blobfuse-cpp
       run: |
         sudo mkdir ./mount /mnt/blobfusetmp
-        sudo chown 777 mount
-        sudo chown 777 /mnt/blobfusetmp
+        sudo chown -R `whoami` /mnt/blobfusetmp
+        sudo chmod 777 /mnt/blobfusetmp
         export AZURE_STORAGE_ACCOUNT=anmodblobwthns
         export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
         sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --container-name=test
