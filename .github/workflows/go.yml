@@ -29,7 +29,22 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-
+    - name: Install Blobfuse
+      run: |
+        sudo apt-get update --fix-missing
+        sudo apt-get install pkg-config cmake libcurl4-gnutls-dev libgnutls28-dev uuid-dev libgcrypt20-dev libboost-all-dev gcc g++ -y
+        sudo apt-get install blobfuse
+        
+    - name: Run Blobfuse-cpp
+      run: |
+        export AZURE_STORAGE_ACCOUNT=anmodblobwthns
+        export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
+        mkdir mount temp
+        blobfuse mount --tmp-path=temp --container-name=test
+        cd mount 
+        ls -l
+        cd ..
+        fusermount -u mount
     - name: Install Blobfuse-Go
       run: |
         cd main
@@ -39,4 +54,3 @@ jobs:
       run: |
         cd mount
         ls -l
-        
