@@ -38,18 +38,18 @@ jobs:
     - name: Run Blobfuse-cpp
       run: |
         pwd
-        sudo mkdir mount
-        sudo chown -R `whoami` mount
-        sudo chmod 777 mount
-        sudo mkdir /mnt/blobfusetmp
-        sudo chown -R `whoami` /mnt/blobfusetmp
-        sudo chmod 777 /mnt/blobfusetmp
+        mkdir mount
+        chown -R `whoami` mount
+        chmod 777 mount
+        mkdir /mnt/blobfusetmp
+        chown -R `whoami` /mnt/blobfusetmp
+        chmod 777 /mnt/blobfusetmp
         echo "accountName anmodblobwthns" > connection.conf
         echo "accountKey " ${{secrets.ACCOUNT_KEY}} >> connection.conf
         echo "authType Key" >> connection.conf
         echo "containerName test" >> connection.conf
         cat connection.conf
-        sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
+        blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
         echo "Mounted"
         cd mount 
         ls -l
