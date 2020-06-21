@@ -37,12 +37,18 @@ jobs:
         
     - name: Run Blobfuse-cpp
       run: |
-        sudo mkdir ./mount /mnt/blobfusetmp
+        mkdir mount
+        sudo chown -R `whoami` mount
+        sudo chmod 777 mount
+        sudo mkdir /mnt/blobfusetmp
         sudo chown -R `whoami` /mnt/blobfusetmp
         sudo chmod 777 /mnt/blobfusetmp
-        export AZURE_STORAGE_ACCOUNT=anmodblobwthns
-        export AZURE_STORAGE_ACCESS_KEY=${{secrets.ACCOUNT_KEY}}
-        sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --container-name=test
+        echo "accountName anmodblobwthns" > connection.conf
+        echo "accountKey " ${{secrets.ACCOUNT_KEY}} >> connection.conf
+        echo "authType Key" >> connection.conf
+        echo "containerName test" >> connection.conf
+        cat connection.conf
+        sudo blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
         cd mount 
         ls -l
         touch hello.txt
