@@ -83,10 +83,6 @@ jobs:
         dd if=/dev/zero of=test5.txt  bs=1000M  count=1
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 1000 MB"
-        STARTTIME=$(date +%s)
-        dd if=/dev/zero of=test6.txt  bs=2000M  count=1
-        ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 2000 MB"
         ls -l
         cd ..
         fusermount -u mount
@@ -118,21 +114,17 @@ jobs:
         cp test5.txt ../anuj
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 1000 MB"
-        STARTTIME=$(date +%s)
-        cp test6.txt ../anuj
-        ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to download 2000 MB"
         
     - name: Clean Container
       run: |
         cd mount 
         ls -l
-        rm test1.txt test2.txt test3.txt test4.txt test5.txt test6.txt
+        rm test1.txt test2.txt test3.txt test4.txt test5.txt
         ls -l
         cd ..
         fusermount -u mount
         cd anuj
-        rm test1.txt test2.txt test3.txt test4.txt test5.txt test6.txt
+        rm test1.txt test2.txt test3.txt test4.txt test5.txt
         
     - name: Install and Run Blobfuse-Go
       run: |
@@ -164,10 +156,6 @@ jobs:
         dd if=/dev/zero of=test5.txt  bs=1000M  count=1
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 1000 MB"
-        STARTTIME=$(date +%s)
-        dd if=/dev/zero of=test6.txt  bs=2000M  count=1
-        ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 2000 MB"
         ls -l
         
     - name: Download Test Blobfuse-Cpp
@@ -193,10 +181,6 @@ jobs:
         cp test5.txt ../anuj
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 1000 MB"
-        STARTTIME=$(date +%s)
-        cp test6.txt ../anuj
-        ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to download 2000 MB"
         cd ..
         fusermount -u mount
         
@@ -206,11 +190,11 @@ jobs:
         echo "Mounted"
         cd mount 
         ls -l
-        rm test1.txt test2.txt test3.txt test4.txt test5.txt test6.txt
+        rm test1.txt test2.txt test3.txt test4.txt test5.txt
         cd ..
         fusermount -u mount
         cd anuj
-        rm test1.txt test2.txt test3.txt test4.txt test5.txt test6.txt
+        rm test1.txt test2.txt test3.txt test4.txt test5.txt
         
     - name: Upload Test Azcopy
       run: |
@@ -220,7 +204,6 @@ jobs:
         dd if=/dev/zero of=test3.txt  bs=200M  count=1
         dd if=/dev/zero of=test4.txt  bs=400M  count=1
         dd if=/dev/zero of=test5.txt  bs=1000M  count=1
-        dd if=/dev/zero of=test6.txt  bs=2000M  count=1    
         chmod 777 azcopy
         STARTTIME=$(date +%s)
         ./azcopy copy "test1.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
@@ -242,10 +225,6 @@ jobs:
         ./azcopy copy "test5.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 1000 MB"
-        STARTTIME=$(date +%s)
-        ./azcopy copy "test6.txt" "https://anmodblobwthns.blob.core.windows.net/test/test2.txt${{secrets.SAS_KEY}}"
-        ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to upload 2000 MB"
         
     - name: Download Test Azcopy
       run: |
@@ -271,11 +250,7 @@ jobs:
         ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}" "test5.txt"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 1000 MB"
-        STARTTIME=$(date +%s)
-        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}" "test6.txt"
-        ENDTIME=$(date +%s)
-        echo "$(($ENDTIME - $STARTTIME)) seconds to download 2000 MB"
-        rm test1.txt test2.txt test3.txt test4.txt test5.txt test6.txt
+        rm test1.txt test2.txt test3.txt test4.txt test5.txt
         
     - name: Clean Container
       run: |
@@ -283,7 +258,7 @@ jobs:
         echo "Mounted"
         cd mount 
         ls -l
-        rm test1.txt test2.txt test3.txt test4.txt test5.txt test6.txt
+        rm test1.txt test2.txt test3.txt test4.txt test5.txt
         cd ..
         fusermount -u mount
         
