@@ -105,3 +105,23 @@ jobs:
         cd ..
         fusermount -u mount
         
+    - name: Upload Test Azcopy
+      run: |
+        cd testscripts
+        dd if=/dev/zero of=test1.txt  bs=10M  count=1
+        dd if=/dev/zero of=test2.txt  bs=100M  count=1      
+        chmod 777 azcopy
+        ./azcopy copy "test1.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
+        ./azcopy copy "test2.txt" "https://anmodblobwthns.blob.core.windows.net/test/test2.txt${{secrets.SAS_KEY}}"
+        
+    - name: Clean Container
+      run: |
+        blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
+        echo "Mounted"
+        cd mount 
+        ls -l
+        rm test1.txt test2.txt
+        cd ..
+        fusermount -u mount
+        
+        
