@@ -75,11 +75,11 @@ jobs:
         cd mount
         ls -l
         STARTTIME=$(date +%s)
-        value = `cat test1.txt`
+        cat test1.txt > output.txt
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 10 MB"
         STARTTIME=$(date +%s)
-        value = `cat test2.txt`
+        cat test2.txt > output.txt
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 100 MB"
         
@@ -116,11 +116,11 @@ jobs:
       run: |
         cd mount
         STARTTIME=$(date +%s)
-        value = `cat test1.txt`
+        cat test1.txt > output.txt
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 10 MB"
         STARTTIME=$(date +%s)
-        value = `cat test2.txt`
+        cat test2.txt > output.txt
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 100 MB"
         cd ..
