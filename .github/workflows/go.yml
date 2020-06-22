@@ -48,6 +48,9 @@ jobs:
         echo "authType Key" >> connection.conf
         echo "containerName test" >> connection.conf
         cat connection.conf
+        mkdir anuj
+        chown -R `whoami` anuj
+        chmod 777 anuj
         
     - name: Run Blobfuse
       run: |
@@ -75,11 +78,11 @@ jobs:
         cd mount
         ls -l
         STARTTIME=$(date +%s)
-        cat test1.txt > output.txt
+        cp test1.txt ../anuj
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 10 MB"
         STARTTIME=$(date +%s)
-        cat test2.txt > output.txt
+        cp test2.txt ../anuj
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 100 MB"
         
@@ -91,6 +94,8 @@ jobs:
         ls -l
         cd ..
         fusermount -u mount
+        cd anuj
+        rm test1.txt test2.txt
         
     - name: Install and Run Blobfuse-Go
       run: |
@@ -116,11 +121,11 @@ jobs:
       run: |
         cd mount
         STARTTIME=$(date +%s)
-        cat test1.txt > output.txt
+        cp test1.txt ../anuj
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 10 MB"
         STARTTIME=$(date +%s)
-        cat test2.txt > output.txt
+        cp test2.txt ../anuj
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 100 MB"
         cd ..
@@ -135,6 +140,8 @@ jobs:
         rm test1.txt test2.txt
         cd ..
         fusermount -u mount
+        cd anuj
+        rm test1.txt test2.txt
         
     - name: Upload Test Azcopy
       run: |
@@ -151,6 +158,7 @@ jobs:
         chmod 777 azcopy
         ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}" "test1.txt"
         ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test2.txt${{secrets.SAS_KEY}}" "test2.txt"
+        rm test1.txt test2.txt
         
     - name: Clean Container
       run: |
