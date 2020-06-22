@@ -58,6 +58,7 @@ jobs:
     - name: Upload Test Blobfuse-cpp
       run: |
         cd mount
+        ls -l
         STARTTIME=$(date +%s)
         dd if=/dev/zero of=test1.txt  bs=10M  count=1
         ENDTIME=$(date +%s)
@@ -66,6 +67,9 @@ jobs:
         dd if=/dev/zero of=test2.txt  bs=100M  count=1
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
+        ls -l
+        rm test1.txt test2.txt
+        ls -l
         cd ..
         fusermount -u mount
         
@@ -78,6 +82,7 @@ jobs:
     - name: Upload Test Blobfuse-Go
       run: |
         cd mount
+        ls -l
         STARTTIME=$(date +%s)
         dd if=/dev/zero of=test1.txt  bs=10M  count=1
         ENDTIME=$(date +%s)
@@ -86,6 +91,17 @@ jobs:
         dd if=/dev/zero of=test2.txt  bs=100M  count=1
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
+        ls -l
+        cd ..
+        fusermount -u mount
+        
+    - name: Clean Container
+      run: |
+        blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
+        echo "Mounted"
+        cd mount 
+        ls -l
+        rm test1.txt test2.txt
         cd ..
         fusermount -u mount
         
