@@ -90,6 +90,8 @@ jobs:
         ls -l
         cd ..
         fusermount -u mount
+        cd /mnt/blobfusetmp
+        rm -r root
         
     - name: Download Test Blobfuse-Cpp
       run: |
