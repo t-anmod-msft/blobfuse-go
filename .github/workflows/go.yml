@@ -69,11 +69,11 @@ jobs:
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
         ls -l
-        cd ..
-        fusermount -u mount
         
     - name: Download Test Blobfuse-Cpp
       run: |
+        cd mount
+        ls -l
         STARTTIME=$(date +%s)
         value = `cat test1.txt`
         ENDTIME=$(date +%s)
@@ -85,8 +85,6 @@ jobs:
         
     - name: Clean Container
       run: |
-        blobfuse mount --tmp-path=/mnt/blobfusetmp --config-file=connection.conf
-        echo "Mounted"
         cd mount 
         ls -l
         rm test1.txt test2.txt
@@ -113,11 +111,10 @@ jobs:
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
         ls -l
-        cd ..
-        fusermount -u mount
         
     - name: Download Test Blobfuse-Cpp
       run: |
+        cd mount
         STARTTIME=$(date +%s)
         value = `cat test1.txt`
         ENDTIME=$(date +%s)
@@ -126,6 +123,8 @@ jobs:
         value = `cat test2.txt`
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 100 MB"
+        cd ..
+        fusermount -u mount
         
     - name: Clean Container
       run: |
