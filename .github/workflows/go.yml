@@ -90,6 +90,7 @@ jobs:
         cd mount 
         ls -l
         rm test1.txt test2.txt
+        ls -l
         cd ..
         fusermount -u mount
         
