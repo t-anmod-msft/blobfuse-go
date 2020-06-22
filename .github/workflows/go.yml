@@ -158,7 +158,7 @@ jobs:
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 1000 MB"
         ls -l
         
-    - name: Download Test Blobfuse-Cpp
+    - name: Download Test Blobfuse-Go
       run: |
         cd mount
         STARTTIME=$(date +%s)
@@ -210,19 +210,19 @@ jobs:
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 10 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "test2.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
+        ./azcopy copy "test2.txt" "https://anmodblobwthns.blob.core.windows.net/test/test2.txt${{secrets.SAS_KEY}}"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 100 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "test3.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
+        ./azcopy copy "test3.txt" "https://anmodblobwthns.blob.core.windows.net/test/test3.txt${{secrets.SAS_KEY}}"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 200 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "test4.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
+        ./azcopy copy "test4.txt" "https://anmodblobwthns.blob.core.windows.net/test/test4.txt${{secrets.SAS_KEY}}"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 400 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "test5.txt" "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}"
+        ./azcopy copy "test5.txt" "https://anmodblobwthns.blob.core.windows.net/test/test5.txt${{secrets.SAS_KEY}}"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to upload 1000 MB"
         
@@ -239,15 +239,15 @@ jobs:
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 100 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}" "test3.txt"
+        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test3.txt${{secrets.SAS_KEY}}" "test3.txt"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 200 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}" "test4.txt"
+        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test4.txt${{secrets.SAS_KEY}}" "test4.txt"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 400 MB"
         STARTTIME=$(date +%s)
-        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test1.txt${{secrets.SAS_KEY}}" "test5.txt"
+        ./azcopy copy "https://anmodblobwthns.blob.core.windows.net/test/test5.txt${{secrets.SAS_KEY}}" "test5.txt"
         ENDTIME=$(date +%s)
         echo "$(($ENDTIME - $STARTTIME)) seconds to download 1000 MB"
         rm test1.txt test2.txt test3.txt test4.txt test5.txt
